@@ -202,7 +202,18 @@ void Wiegand::flushData() {
                 }
             }
 
-        } else {
+        } 
+        else if (bits == 37) // added 37 bits support. By A.MJADI
+        {
+            // If you want parity check, implement here
+            bits = align_data(data, 0, bits);
+            if (func_data)
+            {
+                func_data(data, bits, func_data_param);
+            }
+        }
+        
+        else {
             if (func_data_error) {
                 bits = align_data(data, 0, bits);
                 func_data_error(DataError::DecodeFailed, data, bits, func_data_error_param);
